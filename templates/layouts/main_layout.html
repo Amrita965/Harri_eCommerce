@@ -21,14 +21,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
       body {
         font-family: "Roboto", sans-serif;
-      } 
+      }
     </style>
   </head>
   <body>
-    <header class="fixed w-full bg-white z-[100]">
+    <header class="fixed top-0 left-0 w-full bg-white z-[100]">
       <section class="shadow-md">
         <nav class="navbar max-w-screen-xl mx-auto">
           <div class="navbar-start">
@@ -71,7 +72,7 @@
                 <li><a class="font-medium" href="">Contact Us</a></li>
               </ul>
             </div>
-            <a href="">
+            <a href="{% url "Home:home" %}">
               <img
                 src="{% static 'images/logo.png' %}"
                 alt="Logo"
@@ -98,11 +99,35 @@
               />
             </div>
             {% endcomment %}
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-              <div class="indicator">
-                <i class="fa-regular fa-user font-medium text-lg"></i>
+            {% if request.user.is_authenticated %}
+            <div class="dropdown dropdown-end">
+              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
               </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                <li>
+                  <a class="justify-between">
+                    Profile
+                    <span class="badge">New</span>
+                  </a>
+                </li>
+                <li><a>Settings</a></li>
+                <li><a href="{% url "Login:logout_view" %}">Logout</a></li>
+              </ul>
             </div>
+            {% else %}
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <a href="{% url "Login:login_view" %}" class="indicator block">
+                <i class="fa-regular fa-user font-medium text-lg"></i>
+              </a>
+            </div>
+            {% endif %}
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-regular fa-heart font-medium text-xl"></i>
@@ -153,7 +178,48 @@
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <section class="footer text-base-content p-10 max-w-screen-xl mx-auto">
+        <aside>
+          <a href="{% url "Home:home" %}">
+            <img
+              src="{% static 'images/logo.png' %}"
+              alt="Logo"
+              class="h-10"
+            />
+          </a>
+          <p>
+            ACME Industries Ltd.
+            <br />
+            Providing reliable tech since 1992
+          </p>
+        </aside>
+        <nav>
+          <h6 class="footer-title">Services</h6>
+          <a class="link link-hover">Branding</a>
+          <a class="link link-hover">Design</a>
+          <a class="link link-hover">Marketing</a>
+          <a class="link link-hover">Advertisement</a>
+        </nav>
+        <nav>
+          <h6 class="footer-title">Company</h6>
+          <a class="link link-hover">About us</a>
+          <a class="link link-hover">Contact</a>
+          <a class="link link-hover">Jobs</a>
+          <a class="link link-hover">Press kit</a>
+        </nav>
+        <nav>
+          <h6 class="footer-title">Legal</h6>
+          <a class="link link-hover">Terms of use</a>
+          <a class="link link-hover">Privacy policy</a>
+          <a class="link link-hover">Cookie policy</a>
+        </nav>
+      </section>
+    </footer>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+      {% block script %}{% endblock script %}
+    </script>
   </body>
 </html>
