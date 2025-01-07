@@ -1,0 +1,27 @@
+{% extends "layouts/main_layout.html" %} 
+{% load static %}
+{% block title %}Home{% endblock title%} 
+{% block content %}
+<section class="bg-[#F0F2EE]">
+  <div class="card lg:card-side max-w-screen-xl mx-auto pt-[120px]">
+    <div class="card-body basis-[50%] justify-center items-start gap-10">
+        <div class="flex items-center gap-3">
+            <div class="h-[40px] w-[2px] bg-red-500"></div>
+            <p class="text-lg leading-tight">Best Ear<br>Headphones</p>
+        </div>
+      <h2 class="card-title text-7xl">Music To <br> Fill Your Heart</h2>
+      <button class="btn btn-outline rounded-none transition-all duration-300 ease-in-out hover:text-white hover:-translate-y-1 hover:shadow-lg animate-pulse">
+        SHOP NOW 
+        <i class="fa-solid fa-arrow-right ml-2 animate-bounce"></i>
+      </button>
+    </div>
+    <figure class="basis-[50%] relative flex items-center justify-center">
+        <!-- Pulsing Circle -->
+        <div class="absolute animate-pulse-circle w-[400px] h-[400px] rounded-full border-[15px] border-solid border-gray-300"></div>
+        
+        <!-- Image -->
+        <img class="h-auto relative z-10" src="{% static 'Home/images/banner-img.webp' %}" alt="Headphones" />
+    </figure>
+  </div>
+</section>
+{% endblock content %}
