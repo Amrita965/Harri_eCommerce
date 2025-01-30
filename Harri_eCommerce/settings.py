@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Home',
-    'Category',
     'Login',
     'SignUp',
+    'ProductCategory',
+    'Products'
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,12 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [STATIC_DIR]
 
+# Media files
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -133,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/login"
 
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
 
 # Email Configurations
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

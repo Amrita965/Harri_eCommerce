@@ -1,0 +1,123 @@
+{% extends "layouts/main_layout.html" %} 
+{% block title %}
+{{ title }}
+{% endblock title %} 
+{% block content %}
+<section class="max-w-screen-xl mx-auto">
+    <div class="mt-[100px] flex justify-between items-center border px-8 py-1">
+        Showing 1–9 of 27 results
+        <p></p>
+        <div class="flex items-center gap-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+            />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn m-1 rounded-none">Short Filtering</div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-100 z-[1] w-52 p-2 shadow">
+                    <li class="rounded-none"><a class="rounded-none">Short Filtering</a></li>
+                    <li class="rounded-none"><a class="rounded-none">Latest Product</a></li>
+                    <li class="rounded-none"><a class="rounded-none">Price low to high</a></li>
+                    <li class="rounded-none"><a class="rounded-none">Price high to low</a></li>
+                </ul>
+              </div>     
+        </div>
+    </div>
+    <div class="flex my-[40px]">
+        <div class="min-w-[306px]">
+            {% for category in categories %}
+            <div class="collapse collapse-arrow">
+                <input type="radio" name="my-accordion-2"  />
+                <div class="collapse-title cursor-pointer {% if sub_category.category.category_name == category.category_name %}text-[#F90369]{% endif %}">{{category.category_name}}</div>
+                <div class="collapse-content p-0">
+                  {% for subcategory in category.subcategory_set.all %}
+                  <ul class="ml-14">
+                    <li class="list-disc">
+                      <a href="{% url "Products:all_products" subcategory_name=subcategory.subcategory_name %}">{{ subcategory.subcategory_name }}</a>
+                    </li>
+                  </ul>
+                  {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="grow grid grid-cols-3 px-5">
+          {% for product in products %}
+          <div>
+            <div class="relative bg-white group">
+              <!-- Sale Tag -->
+              <div class="absolute top-2 left-0 bg-pink-500 text-white text-center text-xs px-2 py-1 z-[1] w-10">
+                Sale
+              </div>
+              <div class="absolute top-10 left-0 bg-black text-white text-xs text-center px-2 py-1 z-[1] w-10">
+                -3%
+              </div>
+          
+              <!-- Image Section -->
+              <div class="overflow-hidden relative">
+                <img
+                  src={{ product.productimage_set.first.image_path.url }}
+                  alt="Product"
+                  class="w-full h-64 object-cover h-[358px]"
+                />
+                <div class="absolute bottom-0 w-full hover:bg-[#F90369] bg-[#212529] text-white text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button class="py-2 px-4 w-full font-semibold">Add to Cart</button>
+                </div>
+              </div>
+              <h3 class="mt-4 mb-1">{{ product.product_name }}</h3>
+              <p class="font-semibold">${{ product.price }}</p>
+                  <!-- Hover Icons -->
+          <div class="absolute top-4 right-4 space-y-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col">
+            <button
+              class="bg-white p-2 shadow-md hover:bg-gray-100 focus:outline-none"
+              aria-label="Add to Wishlist"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+              </svg>
+              
+            </button>
+            <button
+              class="bg-white p-2 shadow-md hover:bg-gray-100 focus:outline-none"
+              aria-label="View Details"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+            
+            </button>
+            <button
+              class="bg-white p-2 shadow-md hover:bg-gray-100 focus:outline-none"
+              aria-label="Copy Link"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+            
+            </button>
+          </div>
+          
+              <!-- Add to Cart Button -->
+              
+            </div>
+          </div>
+          {% endfor %} 
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

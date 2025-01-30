@@ -67,7 +67,7 @@
                 {% endcomment %}
                 <li><a class="font-medium">Home</a></li>
                 <li><a class="font-medium">About Us</a></li>
-                <li><a class="font-medium" href="">Shop</a></li>
+                <li><a class="font-medium" href="{% url "Products:all_products" %}">Shop</a></li>
                 <li><a class="font-medium" href="#">Pages</a></li>
                 <li><a class="font-medium" href="">Contact Us</a></li>
               </ul>
@@ -84,7 +84,7 @@
             <ul class="menu menu-horizontal px-1">
               <li><a class="font-medium">Home</a></li>
               <li><a class="font-medium">About Us</a></li>
-              <li><a class="font-medium" href="">Shop</a></li>
+              <li><a class="font-medium" href="{% url "Products:all_products" %}">Shop</a></li>
               <li><a class="font-medium" href="#">Pages</a></li>
               <li><a class="font-medium" href="">Contact Us</a></li>
             </ul>
@@ -122,17 +122,17 @@
               </ul>
             </div>
             {% else %}
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-              <a href="{% url "Login:login_view" %}" class="indicator block">
+            <a href="{% url "Login:login_view" %}" tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <div class="indicator block">
                 <i class="fa-regular fa-user font-medium text-lg"></i>
-              </a>
-            </div>
+              </div>
+            </a>
             {% endif %}
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+            <a tabindex="0" role="button" class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-regular fa-heart font-medium text-xl"></i>
               </div>
-            </div>
+            </a>
             <label tabindex="0" role="button" class="btn btn-ghost btn-circle" for="cart-drawer">
               <div class="indicator">
                 <svg
@@ -218,6 +218,7 @@
     </footer>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/glide.js"></script>
     <script>
       {% block script %}{% endblock script %}
     </script>

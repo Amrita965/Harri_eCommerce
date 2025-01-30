@@ -8,6 +8,9 @@ from django.contrib.auth.hashers import make_password
 
 def register_view(request):
 
+    if(request.user.is_authenticated):
+        return redirect("Home:home")
+
     dict = {
         "title": "SignUp Page"
     }
@@ -27,9 +30,14 @@ def register_view(request):
             messages.error(request, "Username already exists.")
             return redirect("SignUp:register_view")
         
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists.")
+            return redirect("SignUp:register_view")
+        
         # Hashed the password
-        hashed_password = make_password(password)
-        user = User(username=username, email=email, password=hashed_password, is_active=False)
+        # hashed_password = make_password(password)
+        user = User(username=username, email=email)
+        user.set_password(password)
         user.save()
 
         UserInfo(user=user).save()

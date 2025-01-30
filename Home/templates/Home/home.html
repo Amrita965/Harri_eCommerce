@@ -1,6 +1,6 @@
 {% extends "layouts/main_layout.html" %} 
 {% load static %}
-{% block title %}Home{% endblock title%} 
+{% block title %}{{ title }}{% endblock title%} 
 {% block content %}
 <section class="bg-[#F0F2EE]">
   <div class="card lg:card-side max-w-screen-xl mx-auto pt-[120px]">
@@ -24,9 +24,50 @@
     </figure>
   </div>
 </section>
+<!-- Component: Carousel with indicators inside -->
+<section class="relative w-full glide-02 max-w-screen-xl mx-auto my-[90px] cursor-pointer">
+  <!-- Slides -->
+  <div class="overflow-hidden" data-glide-el="track">
+      <div class="relative w-full overflow-hidden p-0 whitespace-no-wrap flex flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform]">
+        {% for category in categories %}
+        <div>
+          <div class="card bg-base-100 rounded-none">
+            <figure>
+              <img class="w-full"
+                src="{{ category.image_path.url }}"
+                alt="Shoes" />
+            </figure>
+              <h2 class="text-center font-medium mt-5">
+                {{ category.category_name }}
+              </h2>
+          </div>
+        </div>
+        {% endfor %}  
+      </div>
+  </div>
+</seciton>
 {% endblock content %}
-
 {% block script %}
+var glide02 = new Glide('.glide-02', {
+  type: 'carousel',
+  focusAt: 'center',
+  perView: 3,
+  autoplay: 3500,
+  animationDuration: 700,
+  gap: 24,
+  classes: {
+      activeNav: '[&>*]:bg-slate-700',
+  },
+  breakpoints: {
+      1024: {
+          perView: 2
+      },
+      640: {
+          perView: 1
+      }
+  },
+});
+glide02.mount();
 {% if messages %}
 {% for message in messages %}
 Toastify({
